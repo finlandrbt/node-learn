@@ -12,6 +12,7 @@ var handlebars = require('express3-handlebars').create({
     }
 });
 var fortune = require('./lib/fortune.js');
+var credentials = require('./credentials.js');
 
 app.engine('handlebars', handlebars.engine);
 
@@ -19,11 +20,23 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 3000);
 //app.disable('x-powered-by');
 
-app.use(require('body-parser')());
+app.use(require('body-parser').json());
+
+app.use(require('cookie-parser')(credentials.cookieSecret));
+
+app.use(require('express-session')({
+    resave: false, 
+    saveUninitialized: true,
+    secret: credentials.cookieSecret, 
+}));
 
 app.use(function(req, res, next) {
     if (!res.locals.partials) res.locals.partials = {};
     res.locals.partials.weather = fortune.getWeatherData();
+
+    res.locals.flash = req.session.flash;
+    delete req.session.flash;
+
     next();
 });
 
@@ -50,6 +63,40 @@ app.post('/contest/vacation-photo/:year/:month', function(req, res) {
 
 app.get('/newsletter', function(req, res) {
     res.render('newsletter', { csrf: 'CSRF token goes here' });
+});
+
+app.post('/newsletter', function(req, res) {
+    var name = req.body.name || '', email = req.body.email || '';
+    /*
+    if (!email.match(VALID_EMAIL_REGEX)) {
+        if (req.xhr) return res.json({ error: "Invalid name email address." });
+        req.session.flash = {
+            type: "danger",
+            intro: "Validation error",
+            message: "The email address you entered was not valid.",
+        };
+        return res.redirect(303, "/newsletter");
+    }
+    */
+    console.log("email: " + req.body.email);
+    new NewsletterSignup({name: name, email, email}).save(function(err) {
+        if (err) {
+            if (req.xhr) return res.json({ error: "Database error." });
+            req.session.flash = {
+                type: "danger",
+                intro: "Database error",
+                message: "There was a database error; please try again later.",
+            }
+            return res.redirect(303, "/newsletter");
+        }
+        if (req.xhr) return res.json({ success: true });
+        req.session.flash = {
+            type: "success",
+            intro: "Thank you",
+            message: "You have now been signed up for the newsletter.",
+        };
+        return res.redirect(303, "/newsletter");
+    });
 });
 
 app.post('/process', function(req, res) {

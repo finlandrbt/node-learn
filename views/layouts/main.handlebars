@@ -2,6 +2,13 @@
 <html>
 <head>
     <title>Meadowlark Travel</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    {{#if flash}}
+        <div class="alert alert-dismissible alert-{{flash.type}}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{{flash.intro}}</strong> {{{flash.message}}}
+        </div>
+    {{/if}}
 </head>
 <body>
     {{{body}}}
