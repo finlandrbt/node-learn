@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<title>账户追踪</title>
+<script language="javascript" src="./echarts.simple.min.js"></script>
+<script language="javascript" src="./jquery-3.1.0.min.js"></script>
+<script language="javascript" src="./comm.js"></script>
+<script language="javascript">
+user_id = getParameter("user_id");
+</script>
+</head>
+<body>
+<center>
+<table border="0" style="width:80%; height:100%;">
+<tr><td style="text-align:center">
+<h1><div id="maxYrs"></div></h1><br/>
+<div id="timeChange"></div>
+<hr size="1"/>
+</td></tr>
+<td style="text-align:center">
+<table>
+<tr><td colspan="2" style="text-align:center; width:80%; height:100%">WE-进攻2号</td></tr>
+<tr><td>750,000元<br/>累计投资</td><td>3,000元<br/>累计收益</td></tr>
+<tr><td>首笔投资:500,000元</td><td>每月投资:700元</td></tr>
+<tr><td colspan="2" style="text-align:center">始于2016.7.6，已过去7个月，离梦想又近了些</td></tr>
+</table>
+</td></tr>
+<tr><td colspan="2"><hr size="1"/><h4>业绩比拼 2016.7.6 - 2017.5.5</h4></td></tr>
+<tr><td>
+<center>
+<table border="0" style="width:80%; height:100%; text-align:center">
+<tr><td style="width:50%; height:50%">我的理财</td><td>WE-进攻2号</td></tr>
+<tr><td>5%</td><td>13%</td></tr>
+<tr><td>5%</td><td>8%</td></tr>
+<tr><td>5%</td><td>10%</td></tr>
+</table>
+</center>
+</td></tr>
+<tr><td colspan="2">
+涨跌幅：2016.7.6至今，组合的收益率。<br/>
+最大回撤：2016.7.6至今，组合出现过的最大跌幅。<br/>
+风险收益率：数值越大，组合的性价比越高。
+</td></tr>
+<tr><td colspan="2"><hr size="1"/><h4>配置对比</h4></td></tr>
+<tr><td>
+<center>
+<table border="0" style="width:80%; height:100%; text-align:center">
+<tr><td style="width:50%; height:50%">我的理财</td><td>WE-进攻2号</td></tr>
+<tr><td>饼图</td><td>饼图</td></tr>
+<tr><td>涨跌幅</td><td>涨跌幅</td></tr>
+<tr><td>+5%</td><td>+5%</td></tr>
+<tr><td>+12%</td><td>+6%</td></tr>
+<tr><td>-3%</td><td>+13%</td></tr>
+<tr><td>+1%</td><td>+12%</td></tr>
+</table>
+</center>
+</td></tr>
+<tr><td colspan="2"><hr size="1"/><h4>组合详情</h4></td></tr>
+<tr><td>
+<center>
+<table border="0" style="width:80%; height:100%">
+<tr><td colspan="3" style="text-align:center">WE-进攻2号</td></tr>
+<tr><td colspan="3" style="text-align:center">饼图</td></tr>
+<tr><td colspan="3">权益类</td></tr>
+<tr><td>易方达货币A<br/>000948</td><td>20%<br/>产品比例</td><td>20%<br/>涨跌幅</td></tr>
+<tr><td>易方达货币A<br/>000948</td><td>20%<br/>产品比例</td><td>20%<br/>涨跌幅</td></tr>
+<tr><td colspan="3">固收类</td></tr>
+<tr><td>易方达货币A<br/>000948</td><td>20%<br/>产品比例</td><td>20%<br/>涨跌幅</td></tr>
+</table>
+</center>
+</td></tr>
+<tr><td colspan="2"><hr/><h4>收益走势 2016.7.6 - 2017.5.5</h4></td></tr>
+<tr><td colspan="2">线图</td></tr>
+<tr><td colspan="2"><hr size="1"/><font color="#CCCCCC">想要就此聊一聊，WE理财管家随时恭候。</font></td></tr>
+</table>
+</center><h1>&nbsp;</h1>
+<script language="javascript">
+document.getElementById("maxYrs").innerHTML = "" + 95 + "年"
+document.getElementById("timeChange").innerHTML = "XX号的当前收益让您的梦想计划预计达成时间缩短了100年";
+</script>
+</body>
+</html>

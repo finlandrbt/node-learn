@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<title>计算梦想</title>
+<script language="javascript" src="./comm.js"></script>
+</head>
+<body>
+<center>
+<table style="width:90%; height:70%" border="0">
+<tr><td colspan="3" style="text-align:center; height:150px">请在此输入您的梦想</td></tr>
+<tr align="center"><td>梦想名称</td><td>买车</td><td>买房</td></tr>
+<tr align="center">
+    <td style="height:80px">目标总额(元）</td>
+    <td><input type="text" name="fv1" id="fv1" style="width:100px;text-align:center" value="200000"></td>
+    <td><input type="text" name="fv2" id="fv2" style="width:100px;text-align:center" value="4000000"></td>
+</tr>
+<tr align="center">
+    <td style="height:80px">当前可投入（元）</td>
+    <td><input type="text" name="pv1" id="pv1" style="width:100px;text-align:center" value="50000"></td>
+    <td><input type="text" name="pv2" id="pv2" style="width:100px;text-align:center" value="600000"></td>
+</tr>
+<tr align="center">
+    <td style="height:80px">每月可投入（元）</td>
+    <td><input type="text" name="pmt1" id="pmt1" style="width:100px;text-align:center" value="8000"></td>
+    <td><input type="text" name="pmt2" id="pmt2" style="width:100px;text-align:center" value="15000"></td>
+</tr>
+<tr align="center">
+    <td style="height:80px">期望年限（年）</td>
+    <td><input type="text" name="yrs1" id="yrs1" style="width:100px;text-align:center" value="1"></td>
+    <td><input type="text" name="yrs2" id="yrs2" style="width:100px;text-align:center" value="8"></td>
+</tr>
+</table>
+<input type="button" class="btn btn-primary btn-lg btn-block" value="  去看看我离梦想有多远  " onclick="action()">
+</center>
+<script language="javascript">
+function action() {
+    user_id = getParameter("user_id");
+    yrs1 = document.getElementById("yrs1").value;
+    yrs2 = document.getElementById("yrs2").value;
+    pv1 = document.getElementById("pv1").value;
+    pv2 = document.getElementById("pv2").value;
+    fv1 = document.getElementById("fv1").value;
+    fv2 = document.getElementById("fv2").value;
+    pmt1 = document.getElementById("pmt1").value;
+    pmt2 = document.getElementById("pmt2").value;
+    
+    $.ajax({
+        type: 'POST',
+        url: "weixin-online.bi.we.com/api/notify/"
+        data: '{"msg_id":"res019", "user_id":"'+user_id+'","status":"1"}'
+    });
+
+    window.location = "dream_result.html?user_id="+user_id+"&pv1="+pv1+"&pv2="+pv2+"&yrs1="+yrs1+"&yrs2="+yrs2+"&fv1="+fv1+"&fv2="+fv2+"&pmt1="+pmt1+"&pmt2="+pmt2;
+}
+</script>
+</body>
+</html>

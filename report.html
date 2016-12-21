@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>梦想计划书</title>
+  <script language="JavaScript" src="./jquery-3.1.0.min.js"></script>
+  <script language="JavaScript" src="./echarts.simple.min.js"></script>
+  <style type="text/css">
+    /* 表格样式 */
+    body {
+      font-size: 100%;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+      font-size: 160%;
+    }
+
+    caption {
+      text-align: left;
+      color: grey;
+      padding-bottom: 10px;
+    }
+
+    tr.header {
+      border-bottom: 2pt solid grey;
+    }
+
+    tr.row {
+      border-top: 1pt solid grey;
+    }
+
+    #allocation tr.row {
+      border: 1pt solid grey;
+    }
+
+    #allocation td.asset-class {
+      border-right: 1pt solid grey;
+    }
+
+    /* 底部链接样式 */
+    a:link {
+      text-decoration: none;
+    }
+
+    /* 图表样式 */
+    .figure-container {
+      height: 300px;
+    }
+
+    .figure {
+      width: 49%;
+      height: 100%;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+<div class="main-container">
+  <h1>我的梦想计划书</h1>
+  <p>本计划书旨在帮您梳理理财需求与目标，提供梦想计划参考信息，助您心中有数地向实现人生梦想的目标迈进。</p>
+  <p>梦想是要花钱滴!</p>
+  <table id="dream">
+    <caption>您未来 <span id="max-yrs"></span> 年的人生梦想</caption>
+    <tr class="header">
+      <th>目标</th>
+      <th>希望时间</th>
+      <th>要花的钱</th>
+      <th>当前可投</th>
+      <th>每月可投</th>
+      <th>预计时间</th>
+    </tr>
+  </table>
+  <p>您的风险承受能力为：<span id="user-risk">--</span>。</p>
+  <p>当预期年化收益率为<span class="ann-rtn">--</span>的时候，想要实现您梦想预计需要<span
+          id="yrs">--</span>年~</p>
+  <p>想要达成预期年化收益率<span class="ann-rtn">--</span>，资产配置少不了。</p>
+  <div class="figure-container">
+    <div id="cash-chart" class="figure"></div>
+    <div id="asset-chart" class="figure"></div>
+  </div>
+  <p>为什么这么配这几大类？</p>
+  <ul>
+    <li>现金类：放在宝宝类/货币基金，这部分钱不是日常消费的，而是随时准备根据市场行情来投资的</li>
+    <li>固收类：例如债券基金，在风险适中的基础上获取相对稳定的中等收益</li>
+    <li>权益类：例如股票基金，承受较高风险博取波动较大的高收益</li>
+    <li>另类投资：例如黄金基金、商品基金等，获取特定领域收益</li>
+  </ul>
+  <p>这几大类里具体可能怎么配？</p>
+  <table id="allocation">
+    <caption>资产配置表</caption>
+    <tr class="header">
+      <th>资产大类</th>
+      <th>基金产品类别</th>
+      <th>产品比例</th>
+      <th>配置金额（元）</th>
+    </tr>
+    <tr class="row" id="货币">
+      <td class="asset-class">现金类</td>
+      <td>货币</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="信用债">
+      <td class="asset-class" rowspan="2">固收类</td>
+      <td>信用债</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="债券指数">
+      <td>债券指数</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="A股">
+      <td class="asset-class" rowspan="3">权益类</td>
+      <td>A股</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="美股">
+      <td>美股</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="港股">
+      <td>港股</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+    <tr class="row" id="黄金">
+      <td class="asset-class">另类</td>
+      <td>黄金</td>
+      <td>--</td>
+      <td>--</td>
+    </tr>
+  </table>
+  <p>可能的候选公募基金组合有：<span id="fof">--</span>。</p>
+  <p id="fof-user-desc"></p>
+  <table id="detail">
+    <caption>配置详情</caption>
+    <tr class="header">
+      <th>基金代码</th>
+      <th>配置比例</th>
+    </tr>
+  </table>
+  <p>WE理财管家随时恭候您：</p>
+  <ul>
+    <li><a href="#">聊一聊梦想计划书</a></li>
+    <li><a href="#">对您的已有理财做检视</a></li>
+    <li><a href="#">建立虚拟账户，跟踪查看涨跌表现</a></li>
+  </ul>
+  <p>温馨提示：</p>
+  <p>
+    该计划书内容是针对您提供的信息，通过技术手段和使用数据模型而形成的部分分析结果，不构成投资建议；
+    基金的过往业绩不预示其未来表现，请您独立判断和进行投资决策。市场有风险，投资需谨慎。
+    基金销售服务由珠海盈米财富管理有限公司提供，该公司基金销售资格证书编号为000000378。</p>
+</div>
+<script language="JavaScript">
+  // 获取用户id
+  userId = getParameter("user_id");
+  // 用户报告数据
+  $.ajax({
+    type: "GET",
+    url: "http://easemob.bi.we.com/customerService/getFinanceReport.action",
+    data: {"user_id": userId},
+    success: function (data) {
+      var dreams = data['data']['dreams'];
+      var amount = data['data']['amount'];
+      var maxYrs = data['data']['maxRequiredYears'];
+      var UserFOFDetail = data['data']['we']['fundWeights'];
+      var cash = [];
+      data['data']['data_line'].forEach(function (x) {
+        this.push(x / 10000);
+      }, cash);
+      var fofUser = data['data']['we']['basicInfo'];
+      //var fofWe = data['data']['we']['basicInfo'];
+      var ratio = [
+        {'name': '货币', 'value': fofUser['ratioM']},
+        {'name': '另类', 'value': fofUser['ratioA']},
+        {'name': '权益', 'value': fofUser['ratioSec']},
+        {'name': '固收', 'value': fofUser['ratioFix']}
+      ];
+      // 填空
+      $('#max-yrs').text(maxYrs);
+      $('#yrs').text(maxYrs);
+      $('#user-risk').text(fofUser['riskLevel']);
+      $('.ann-rtn').text((Math.round(fofUser['r'] * 10000) / 100).toString() + "%");
+      $('#fof').text([fofUser['fofName']].join("，"));
+      var fof_desc = "以" + fofUser['fofName'] + "为例，年涨跌幅" + fofUser['r']
+              + "，参考最大回撤为" + fofUser['maxDrawdown'] + "，组合配置信息为：";
+      $('#fof-user-desc').text(fof_desc);
+      // 填表
+      fillDream(dreams);
+      fillDetail(UserFOFDetail);
+      fillAllocation(amount, UserFOFDetail);
+      // 画图
+      drawCashChart(cash);
+      drawAssetChart(ratio);
+    },
+    error: function () {
+      console.log("Error");
+    }
+  });
+
+  // 山寨下python的range
+  function range(x, fix) {
+    var result = [];
+    fix = typeof fix !== 'undefined' ? fix : 12;
+
+    for (var i = 0; i < x; i++) {
+      result.push(i / fix);
+    }
+
+    return result
+  }
+  // 获取用户id
+  function getParameter(paraName) {
+    var urlStr = location.href;
+    var queryStr = ((urlStr.split("?"))[1].split("#"))[0];
+    var queryParaList = queryStr.split("&");
+    var queryValue = "";
+    for (var i = 0; i < queryParaList.length; i++) {
+      var queryParaName = (queryParaList[i].split("="))[0];
+      if (queryParaName == paraName) {
+        queryValue = (queryParaList[i].split("="))[1];
+        break;
+      }
+    }
+    return queryValue;
+  }
+  // 填梦想表
+  function fillDream(data) {
+    for (var i = 0; i < data.length; i++) {
+      var cell_array = [];
+      cell_array.push(data[i]['dream']);
+      cell_array.push(data[i]['yrs']);
+      cell_array.push(data[i]['fv']);
+      cell_array.push(data[i]['pv']);
+      cell_array.push(data[i]['pmt']);
+      cell_array.push(data[i]['real_yrs']);
+      var cells = "<td>" + cell_array.join("</td><td>") + "</td>";
+      var row = "<tr class=row>" + cells + "</tr>";
+      $("#dream").append(row);
+    }
+  }
+  function fillDetail(data) {
+    for (var i = 0; i < data.length; i++) {
+      var cell_array = [];
+      cell_array.push(data[i]['fundCode']);
+      cell_array.push((data[i]['weight'] * 100).toString() + "%");
+      var cells = "<td>" + cell_array.join("</td><td>") + "</td>";
+      var row = "<tr class=row>" + cells + "</tr>";
+      $("#detail").append(row);
+    }
+  }
+  function fillAllocation(amt, data) {
+    console.log(amt);
+    console.log(data);
+    for (var i = 0; i < data.length; i++) {
+      var selector = data[i]['fundType'];
+      var weight = (data[i]['weight'] * 100).toString() + "%";
+      var invest = Math.round(weight * amt).toString();
+      console.log(selector);
+      console.log(weight);
+      console.log(invest);
+      $(selector).children().eq(-1).text(invest);
+      $(selector).children().eq(-2).text(weight);
+    }
+  }
+  // 绘制现金流图
+  function drawCashChart(data) {
+    var cashChart = echarts.init($('#cash-chart')[0]);
+
+    var chartOption = {
+      title: {
+        text: '现金流图'
+      },
+      tooltip: {},
+      xAxis: {
+        name: '年',
+        data: range(data.length)
+      },
+      yAxis: {
+        name: '现金（万）'
+      },
+      series: [{
+        type: 'line',
+        data: data
+      }]
+    };
+
+    cashChart.setOption(chartOption);
+  }
+  // 绘制资产配置图
+  function drawAssetChart(data) {
+    var assetChart = echarts.init($('#asset-chart')[0]);
+    var legend_data = [];
+    for (var i = 0; i < data.length; i++) {
+      legend_data.push(data[i]['name']);
+    }
+    var chartOption = {
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: legend_data
+      },
+      series: [
+        {
+          type: 'pie',
+          radius: '75%',
+          data: data,
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }
+      ]
+    };
+
+    assetChart.setOption(chartOption);
+  }
+</script>
+</body>
+</html>
